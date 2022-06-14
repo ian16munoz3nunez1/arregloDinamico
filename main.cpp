@@ -24,22 +24,14 @@ int main()
         cout << enteros[i] << " ";
 
     cout << endl;
-    int *valor = enteros.buscar(4);
-    if(valor != nullptr)
-        cout << "Valor: " << *valor;
-    else
-        cout << "Valor no encontrado";
+    Arreglo<int> burbuja = enteros.burbuja();
+    for(size_t i = 0; i < burbuja.size(); i++)
+        cout << burbuja[i] << " ";
 
     cout << endl;
-    Arreglo<int*> valores = enteros.buscarTodos(24);
-    if(valores.size() > 0)
-    {
-        for(size_t i = 0; i < valores.size(); i++)
-            cout << *valores[i] << " ";
-        cout << endl;
-    }
-    else
-        cout << "Valor no encontrado" << endl;
+    Arreglo<int> seleccion = enteros.seleccion();
+    for(size_t i = 0; i < seleccion.size(); i++)
+        cout << seleccion[i] << " ";
 
     return 0;
 }

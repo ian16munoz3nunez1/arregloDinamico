@@ -28,6 +28,9 @@ public:
     I* buscar(const I&);
     Arreglo<I*> buscarTodos(const I&);
 
+    Arreglo<I> burbuja();
+    Arreglo<I> seleccion();
+
     size_t size();
 
     I &operator[](size_t i)
@@ -37,6 +40,7 @@ public:
 
 private:
     void expandir();
+    void intercambio(Arreglo<I>&, size_t, size_t);
 };
 
 template<class I>
@@ -161,6 +165,55 @@ Arreglo<I*> Arreglo<I>::buscarTodos(const I &v)
     }
 
     return ptrs;
+}
+
+template<class I>
+Arreglo<I> Arreglo<I>::burbuja()
+{
+    Arreglo<I> ordenado;
+    for(size_t i = 0; i < cont; i++)
+        ordenado.insertarFinal(arreglo[i]);
+
+    for(size_t i = cont-1; i > 0; i--)
+    {
+        for(size_t j = 0; j < i; j++)
+        {
+            if(ordenado[j] > ordenado[j+1])
+                intercambio(ordenado, j, j+1);
+        }
+    }
+
+    return ordenado;
+}
+
+template<class I>
+Arreglo<I> Arreglo<I>::seleccion()
+{
+    Arreglo<I> ordenado;
+    for(size_t i = 0; i < cont; i++)
+        ordenado.insertarFinal(arreglo[i]);
+
+    for(size_t i = 0; i < cont-1; i++)
+    {
+        size_t min = i;
+        for(size_t j = i+1; j < cont; j++)
+        {
+            if(ordenado[j] < ordenado[min])
+                min = j;
+        }
+        intercambio(ordenado, i, min);
+    }
+
+    return ordenado;
+}
+
+template<class I>
+void Arreglo<I>::intercambio(Arreglo<I> &ordenado, size_t i, size_t j)
+{
+    I aux;
+    aux = ordenado[i];
+    ordenado[i] = ordenado[j];
+    ordenado[j] = aux;
 }
 
 template<class I>
