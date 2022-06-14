@@ -25,6 +25,9 @@ public:
     void eliminarFinal();
     void eliminar(size_t);
 
+    I* buscar(const I&);
+    Arreglo<I*> buscarTodos(const I&);
+
     size_t size();
 
     I &operator[](size_t i)
@@ -132,6 +135,32 @@ void Arreglo<I>::eliminar(size_t p)
         arreglo[i] = arreglo[i+1];
 
     cont--;
+}
+
+template<class I>
+I* Arreglo<I>::buscar(const I &v)
+{
+    for(size_t i = 0; i < cont; i++)
+    {
+        if(arreglo[i] == v)
+            return &arreglo[i];
+    }
+
+    return nullptr;
+}
+
+template<class I>
+Arreglo<I*> Arreglo<I>::buscarTodos(const I &v)
+{
+    Arreglo<I*> ptrs;
+
+    for(size_t i = 0; i < cont; i++)
+    {
+        if(arreglo[i] == v)
+            ptrs.insertarFinal(&arreglo[i]);
+    }
+
+    return ptrs;
 }
 
 template<class I>

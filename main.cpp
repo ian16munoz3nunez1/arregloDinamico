@@ -23,15 +23,23 @@ int main()
     for(size_t i = 0; i < enteros.size(); i++)
         cout << enteros[i] << " ";
 
-    enteros.eliminarInicio();
-    enteros.eliminarFinal();
-    enteros.eliminar(2);
-    enteros.eliminar(4);
-    enteros.eliminar(8);
+    cout << endl;
+    int *valor = enteros.buscar(4);
+    if(valor != nullptr)
+        cout << "Valor: " << *valor;
+    else
+        cout << "Valor no encontrado";
 
     cout << endl;
-    for(size_t i = 0; i < enteros.size(); i++)
-        cout << enteros[i] << " ";
+    Arreglo<int*> valores = enteros.buscarTodos(24);
+    if(valores.size() > 0)
+    {
+        for(size_t i = 0; i < valores.size(); i++)
+            cout << *valores[i] << " ";
+        cout << endl;
+    }
+    else
+        cout << "Valor no encontrado" << endl;
 
     return 0;
 }
