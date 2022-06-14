@@ -38,6 +38,13 @@ public:
         return arreglo[i];
     }
 
+    friend Arreglo<I>& operator<<(Arreglo<I> &a, const I &v)
+    {
+        a.insertarFinal(v);
+
+        return a;
+    }
+
 private:
     void expandir();
     void intercambio(Arreglo<I>&, size_t, size_t);
