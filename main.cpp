@@ -1,5 +1,6 @@
 #include<iostream>
 #include"videojuego.h"
+#include"personaje.h"
 
 using namespace std;
 
@@ -12,3 +13,4 @@ int main()
 
     return 0;
 }
+

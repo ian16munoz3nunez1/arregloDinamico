@@ -25,11 +25,11 @@ public:
     void eliminarFinal();
     void eliminar(size_t);
 
-    I* buscar(const I&);
-    Arreglo<I*> buscarTodos(const I&);
+    I* buscar(const I&, bool(*)(I, I)=0);
+    Arreglo<I*> buscarTodos(const I&, bool(*)(I, I)=0);
 
-    Arreglo<I> burbuja();
-    Arreglo<I> seleccion();
+    Arreglo<I> burbuja(bool(*)(I, I)=0);
+    Arreglo<I> seleccion(bool(*)(I, I)=0);
 
     size_t size();
 
@@ -149,33 +149,49 @@ void Arreglo<I>::eliminar(size_t p)
 }
 
 template<class I>
-I* Arreglo<I>::buscar(const I &v)
+I* Arreglo<I>::buscar(const I &v, bool(lambda)(I, I))
 {
     for(size_t i = 0; i < cont; i++)
     {
-        if(arreglo[i] == v)
-            return &arreglo[i];
+        if(lambda == 0)
+        {
+            if(arreglo[i] == v)
+                return &arreglo[i];
+        }
+        else
+        {
+            if(lambda(arreglo[i], v))
+                return &arreglo[i];
+        }
     }
 
     return nullptr;
 }
 
 template<class I>
-Arreglo<I*> Arreglo<I>::buscarTodos(const I &v)
+Arreglo<I*> Arreglo<I>::buscarTodos(const I &v, bool(lambda)(I, I))
 {
     Arreglo<I*> ptrs;
 
     for(size_t i = 0; i < cont; i++)
     {
-        if(arreglo[i] == v)
-            ptrs.insertarFinal(&arreglo[i]);
+        if(lambda == 0)
+        {
+            if(arreglo[i] == v)
+                ptrs.insertarFinal(&arreglo[i]);
+        }
+        else
+        {
+            if(lambda(arreglo[i], v))
+                ptrs.insertarFinal(&arreglo[i]);
+        }
     }
 
     return ptrs;
 }
 
 template<class I>
-Arreglo<I> Arreglo<I>::burbuja()
+Arreglo<I> Arreglo<I>::burbuja(bool(lambda)(I, I))
 {
     Arreglo<I> ordenado;
     for(size_t i = 0; i < cont; i++)
@@ -185,8 +201,16 @@ Arreglo<I> Arreglo<I>::burbuja()
     {
         for(size_t j = 0; j < i; j++)
         {
-            if(ordenado[j] > ordenado[j+1])
-                intercambio(ordenado, j, j+1);
+            if(lambda == 0)
+            {
+                if(ordenado[j] > ordenado[j+1])
+                    intercambio(ordenado, j, j+1);
+            }
+            else
+            {
+                if(lambda(ordenado[j], ordenado[j+1]))
+                    intercambio(ordenado, j, j+1);
+            }
         }
     }
 
@@ -194,7 +218,7 @@ Arreglo<I> Arreglo<I>::burbuja()
 }
 
 template<class I>
-Arreglo<I> Arreglo<I>::seleccion()
+Arreglo<I> Arreglo<I>::seleccion(bool(lambda)(I, I))
 {
     Arreglo<I> ordenado;
     for(size_t i = 0; i < cont; i++)
@@ -205,8 +229,16 @@ Arreglo<I> Arreglo<I>::seleccion()
         size_t min = i;
         for(size_t j = i+1; j < cont; j++)
         {
-            if(ordenado[j] < ordenado[min])
-                min = j;
+            if(lambda == 0)
+            {
+                if(ordenado[j] < ordenado[min])
+                    min = j;
+            }
+            else
+            {
+                if(lambda(ordenado[j], ordenado[min]))
+                    min = j;
+            }
         }
         intercambio(ordenado, i, min);
     }
