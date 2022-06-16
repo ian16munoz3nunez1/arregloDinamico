@@ -15,8 +15,8 @@ public:
     Videojuego();
 
     void mostrar();
-    void guardar();
-    void abrir();
+    void guardar(const string&);
+    void abrir(const string&);
 
     void insertarInicio(const Personaje&);
     void insertarFinal(const Personaje&);

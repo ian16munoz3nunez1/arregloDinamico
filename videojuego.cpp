@@ -14,14 +14,17 @@ void Videojuego::mostrar()
     linea();
     for(size_t i = 0; i < personajes.size(); i++)
     {
+        cout << left;
+        cout << '|';
+        cout << setw(4) << i+1;
         cout << personajes[i];
         linea();
     }
 }
 
-void Videojuego::guardar()
+void Videojuego::guardar(const string &nombreArchivo)
 {
-    ofstream archivo("personajes.txt");
+    ofstream archivo(nombreArchivo);
 
     if(archivo.is_open())
     {
@@ -41,9 +44,9 @@ void Videojuego::guardar()
     archivo.close();
 }
 
-void Videojuego::abrir()
+void Videojuego::abrir(const string &nombreArchivo)
 {
-    ifstream archivo("personajes.txt");
+    ifstream archivo(nombreArchivo);
 
     if(archivo.is_open())
     {
@@ -84,33 +87,27 @@ void Videojuego::abrir()
 void Videojuego::insertarInicio(const Personaje &personaje)
 {
     personajes.insertarInicio(personaje);
-    cout << "Personaje insertado al inicio" << endl;
 }
 void Videojuego::insertarFinal(const Personaje &personaje)
 {
     personajes.insertarFinal(personaje);
-    cout << "Personaje insertado al final" << endl;
 }
 void Videojuego::insertar(const Personaje &personaje, size_t p)
 {
     personajes.insertar(personaje, p);
-    cout << "Personaje insertado en la posicion " << p << endl;
 }
 
 void Videojuego::eliminarInicio()
 {
     personajes.eliminarInicio();
-    cout << "Personaje eliminado al inicio" << endl;
 }
 void Videojuego::eliminarFinal()
 {
     personajes.eliminarFinal();
-    cout << "Personaje eliminado al final" << endl;
 }
 void Videojuego::eliminar(size_t p)
 {
     personajes.eliminar(p);
-    cout << "Personaje eliminado en la posicion " << p << endl;
 }
 
 void Videojuego::buscarNombre(const Personaje &personaje)
@@ -279,9 +276,12 @@ void Videojuego::isPtr(const Personaje *ptr)
 {
     if(ptr != nullptr)
     {
+        cout << left;
         linea();
         cabecera();
         linea();
+        cout << '|';
+        cout << setw(4) << "1";
         cout << *ptr;
         linea();
     }
@@ -293,11 +293,14 @@ void Videojuego::isPtrs(Arreglo<Personaje*> &ptrs)
 {
     if(ptrs.size() > 0)
     {
+        cout << left;
         linea();
         cabecera();
         linea();
         for(size_t i = 0; i < ptrs.size(); i++)
         {
+            cout << '|';
+            cout << setw(4) << i+1;
             cout << *ptrs[i];
             linea();
         }
@@ -308,11 +311,14 @@ void Videojuego::isPtrs(Arreglo<Personaje*> &ptrs)
 
 void Videojuego::printOrdenado(Arreglo<Personaje> &ordenado)
 {
+    cout << left;
     linea();
     cabecera();
     linea();
     for(size_t i = 0; i < ordenado.size(); i++)
     {
+        cout << '|';
+        cout << setw(4) << i+1;
         cout << ordenado[i];
         linea();
     }
@@ -321,6 +327,8 @@ void Videojuego::printOrdenado(Arreglo<Personaje> &ordenado)
 void Videojuego::cabecera()
 {
     cout << left;
+    cout << '|';
+    cout << setw(4) << "No.";
     cout << '|';
     cout << setw(16) << "Nombre";
     cout << '|';
@@ -334,7 +342,7 @@ void Videojuego::cabecera()
 
 void Videojuego::linea()
 {
-    cout << "+----------------+----------------+--------+------+" << endl;
+    cout << "+----+----------------+----------------+--------+------+" << endl;
 }
 
 size_t Videojuego::size()
